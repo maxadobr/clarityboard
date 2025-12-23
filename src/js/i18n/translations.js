@@ -77,7 +77,7 @@ export const translations = {
         'modal.task.name_placeholder': 'Enter task name',
         'modal.task.desc_label': 'Description:',
         'modal.task.desc_placeholder': 'Describe the task...',
-        'modal.task.category_label': 'Category: *',
+        'modal.task.category_label': 'Category:',
         'modal.task.category_placeholder': 'Select or type to create...',
         'modal.task.category_help': 'Type and press Enter to create a new category.',
         'modal.task.category_manage': 'Manage',
@@ -112,6 +112,7 @@ export const translations = {
         'common.back': '← Back',
         'common.next': 'Next →',
         'common.remove': 'Remove',
+        'category.default_blank': 'Blank',
     },
     'pt-BR': {
         // Header
@@ -191,7 +192,7 @@ export const translations = {
         'modal.task.name_placeholder': 'Digite o nome da tarefa',
         'modal.task.desc_label': 'Descrição:',
         'modal.task.desc_placeholder': 'Descreva a tarefa...',
-        'modal.task.category_label': 'Categoria: *',
+        'modal.task.category_label': 'Categoria:',
         'modal.task.category_placeholder': 'Selecione ou digite para criar...',
         'modal.task.category_help': 'Digite e pressione Enter para criar uma nova categoria.',
         'modal.task.category_manage': 'Gerenciar',
@@ -226,5 +227,6 @@ export const translations = {
         'common.back': '← Voltar',
         'common.next': 'Próximo →',
         'common.remove': 'Remover',
+        'category.default_blank': 'Vazio',
     }
 };

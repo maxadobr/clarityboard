@@ -2,6 +2,7 @@ import { addTask, updateTask } from '../database/tasks.js';
 import { getAllCategories, addCategory, deleteCategory } from '../database/categories.js';
 import { getAllNumericCategories, addNumericCategory, deleteNumericCategory } from '../database/categories_numeric.js';
 import { i18n } from '../i18n/i18n.js';
+import { translateCategoryName } from '../utils/categoryTranslation.js';
 
 class TaskModal {
     constructor(currentProjectId, projectType, categoryManager) {
@@ -143,7 +144,7 @@ class TaskModal {
             content.style.display = 'flex';
             content.style.alignItems = 'center';
             content.style.gap = '8px';
-            content.innerHTML = `<span class="color-dot" style="background-color: ${cat.color || '#ccc'}"></span> ${cat.name}`;
+            content.innerHTML = `<span class="color-dot" style="background-color: ${cat.color || '#ccc'}"></span> ${translateCategoryName(cat.name)}`;
             item.appendChild(content);
 
             // Delete button
@@ -184,7 +185,7 @@ class TaskModal {
 
             // Selection logic
             item.addEventListener('click', () => {
-                document.getElementById('taskCategoryInput').value = cat.name;
+                document.getElementById('taskCategoryInput').value = translateCategoryName(cat.name);
                 document.getElementById('taskCategory').value = cat.id;
                 this.updateSelectedCategoryVisual(cat.color);
             });
@@ -339,14 +340,14 @@ class TaskModal {
             document.getElementById('taskCategory').value = task.FK_categories_id;
             const category = this.currentCategories.find(c => c.id === task.FK_categories_id);
             if (category) {
-                document.getElementById('taskCategoryInput').value = category.name;
+                document.getElementById('taskCategoryInput').value = translateCategoryName(category.name);
                 this.updateSelectedCategoryVisual(category.color);
             }
         } else if (task.FK_categories_numeric_id) {
             document.getElementById('taskCategory').value = task.FK_categories_numeric_id;
             const category = this.currentCategories.find(c => c.id === task.FK_categories_numeric_id);
             if (category) {
-                document.getElementById('taskCategoryInput').value = category.name;
+                document.getElementById('taskCategoryInput').value = translateCategoryName(category.name);
                 this.updateSelectedCategoryVisual(category.color);
             }
         }
@@ -371,10 +372,18 @@ class TaskModal {
     async handleSubmit(e) {
         e.preventDefault();
 
-        const categoryId = parseInt(document.getElementById('taskCategory').value);
+        let categoryId = parseInt(document.getElementById('taskCategory').value);
+
+        // If no category is selected, auto-assign the default "Void" category
         if (!categoryId) {
-            alert(i18n.getText('alert.select_category'));
-            return;
+            const blankCategory = this.currentCategories.find(c => c.name === 'Void');
+
+            if (blankCategory) {
+                categoryId = blankCategory.id;
+            } else {
+                alert(i18n.getText('alert.select_category'));
+                return;
+            }
         }
 
         const taskData = {

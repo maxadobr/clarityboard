@@ -1,6 +1,7 @@
 import { addCategory, getAllCategories, deleteCategory, updateCategory } from '../database/categories.js';
 import { addNumericCategory, getAllNumericCategories, deleteNumericCategory, updateNumericCategory } from '../database/categories_numeric.js';
 import { i18n } from '../i18n/i18n.js';
+import { translateCategoryName } from '../utils/categoryTranslation.js';
 
 class CategoryManager {
     constructor(projectId, projectType) {
@@ -131,7 +132,7 @@ class CategoryManager {
                 <div class="category-info">
                     <div class="category-color-preview" style="background-color: ${cat.color || '#4A90E2'}"></div>
                     <div class="category-details">
-                        <div class="category-name">${cat.name}</div>
+                        <div class="category-name">${translateCategoryName(cat.name)}</div>
                         <div class="category-importance">
                             Importance: ${cat.importance}
                         </div>

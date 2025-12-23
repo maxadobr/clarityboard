@@ -25,15 +25,23 @@ async function updateCategory(category) {
     return await database.put('categories', category);
 }
 
-function addDefaultCategories() {
-    const defaultCategories = [
-        { name: 'Health', importance: 2, color: '#28a745' },
-        { name: 'Entertainment', importance: 1, color: '#ffc107' },
-        { name: 'Work', importance: 3, color: '#dc3545' },
-        { name: 'Home', importance: 2, color: '#007bff' }
-    ];
 
-    return Promise.all(defaultCategories.map(cat => addCategory(cat)));
+
+async function addDefaultCategories(projectId, projectType = 'non-numeric') {
+    const blankCategory = {
+        name: 'Void', // Constant name in database, translated in UI layer
+        importance: 0,
+        task: projectId,
+        color: '#6c757d', // Neutral gray
+        completion: '0%'
+    };
+
+    if (projectType === 'numeric') {
+        const { addNumericCategory } = await import('./categories_numeric.js');
+        return await addNumericCategory(blankCategory);
+    } else {
+        return await addCategory(blankCategory);
+    }
 }
 
 export { addCategory, getAllCategories, getCategoryById, deleteCategory, addDefaultCategories, updateCategory };

@@ -2,6 +2,7 @@ import { getAllTasks, updateTask, deleteTask } from '../database/tasks.js';
 import { getCategoryById } from '../database/categories.js';
 import { getNumericCategoryById } from '../database/categories_numeric.js';
 import { i18n } from '../i18n/i18n.js';
+import { translateCategoryName } from '../utils/categoryTranslation.js';
 
 class Board {
     constructor(projectId, projectType, categoryManager, settingsManager) {
@@ -74,7 +75,7 @@ class Board {
 
         await this.renderTasksInColumns();
 
-        
+
         document.querySelectorAll('.add-task-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const status = btn.dataset.status;
@@ -246,7 +247,7 @@ class Board {
             metaHTML = `
                 <div class="task-meta">
                     <span class="task-category" style="--category-color: ${category.color};">
-                        ${category.name}
+                        ${translateCategoryName(category.name)}
                     </span>
                     ${this.projectType === 'numeric' && task.numeric !== null ?
                     `<span class="task-numeric">${task.numeric}</span>` : ''}
@@ -279,7 +280,7 @@ class Board {
             </div>
         `;
 
-        
+
         card.querySelectorAll('[data-action]').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation(); // Prevent card click

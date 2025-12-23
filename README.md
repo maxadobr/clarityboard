@@ -72,10 +72,14 @@ The central idea behind ClarityBoard is to provide **clarity** in task managemen
 - **Custom Categories**: Create unlimited categories to organize your tasks
 - **Category Importance**: Assign importance values (0-10) to each category
 - **Color Coding**: Select from a rich color palette for visual differentiation
+- **Default Blank Category**: Every project includes a "Blank" (en-US) / "Vazio" (pt-BR) category with importance 0 for optional categorization
+- **Optional Categorization**: Tasks can be created without selecting a category (auto-assigns to Blank/Vazio)
 - **Category Management Modal**: Dedicated interface to add, edit, and delete categories
 - **Category Dropdown**: Auto-complete category selection with visual color indicators
 - **Create-on-Type**: Quickly create new categories directly from the task modal
+- **Mobile-Friendly Confirmation**: Dedicated button for category creation on mobile devices without Enter key
 - **Category Deletion Protection**: Confirmation dialog prevents accidental deletions
+- **Multilingual Category Names**: Special categories translate automatically based on language preference
 
 ### Scoring & Prioritization
 
@@ -222,6 +226,7 @@ clarityboard/
 │       └── utils/
 │           ├── constants.js        # Application constants
 │           ├── helpers.js          # Utility functions
+│           ├── categoryTranslation.js # Category name translation utilities
 │           └── importExport.js     # Import/export functionality
 ```
 
@@ -262,9 +267,13 @@ ClarityBoard uses IndexedDB with the following structure:
 - **Fields**:
   - `id`: Category unique identifier
   - `projectId`: Reference to parent project
-  - `name`: Category name
+  - `name`: Category name (constant "Void" for default category, translated in UI)
   - `importance`: Importance value (0-10)
   - `color`: Hex color code
+- **Special Categories**:
+  - Default "Void" category (importance: 0, displays as "Blank"/"Vazio")
+  - Automatically created for all projects
+  - Auto-assigned to tasks without explicit category selection
 
 #### `categories_numeric`
 - **Key Path**: `id` (auto-increment)
@@ -344,7 +353,9 @@ This project is licensed under the MIT License. You are free to use, modify, and
 
 ## 👨‍💻 About the Developer
 
-**ClarityBoard** was created by **Maxado**, a passionate developer focused on building elegant and functional web applications.
+I'm **Maxado**, a Software Engineering student and aspiring Front-End Developer transitioning from a 9-year career in the automotive industry.
+
+I bring a strong foundation in complex problem-solving, project management, and system optimization, and I'm now channeling these skills into creating efficient, user-centered software solutions. Currently pursuing my Bachelor's degree in Software Engineering (2025-2029), I'm passionate about building elegant web applications that bring clarity and productivity to users' workflows. 
 
 ### Connect with Me
 
@@ -354,7 +365,7 @@ This project is licensed under the MIT License. You are free to use, modify, and
 
 ### Explore My Other Projects
 
-Visit my **[portfolio](https://maxadobr.github.io/)** to discover more applications and projects I've built. From web tools to creative experiments, there's always something new to explore!
+Visit my **[portfolio](https://maxadobr.github.io/)** to discover more applications and projects. From web tools to creative experiments, there's always something new to explore!
 
 ### Let's Collaborate
 

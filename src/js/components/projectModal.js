@@ -93,7 +93,7 @@ class ProjectModal {
 
         try {
             const projectId = await addProject(projectData);
-            await addDefaultCategories(projectId);
+            await addDefaultCategories(projectId, projectData.type);
             this.modal.classList.remove('active');
             this.form.reset();
 

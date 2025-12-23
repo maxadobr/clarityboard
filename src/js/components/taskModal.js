@@ -99,6 +99,16 @@ class TaskModal {
             }
         });
 
+        // Confirmation button for category creation (mobile support)
+        const confirmCategoryBtn = document.getElementById('confirmCategoryBtn');
+        confirmCategoryBtn.addEventListener('click', async () => {
+            const name = categoryInput.value.trim();
+            if (name) {
+                await this.handleCategoryCreation(name);
+                hideDropdown();
+            }
+        });
+
         // Urgency Selector
         this.modal.querySelectorAll('.urgency-dot').forEach(dot => {
             dot.addEventListener('click', (e) => {

@@ -3,6 +3,7 @@ import { getCategoryById } from '../database/categories.js';
 import { getNumericCategoryById } from '../database/categories_numeric.js';
 import { i18n } from '../i18n/i18n.js';
 import { translateCategoryName } from '../utils/categoryTranslation.js';
+import { isVoidCategory, VOID_CATEGORY } from '../utils/constants.js';
 
 class Board {
     constructor(projectId, projectType, categoryManager, settingsManager) {
@@ -12,10 +13,20 @@ class Board {
         this.settingsManager = settingsManager;
         this.tasks = [];
 
+        // Bind the handler so we can remove it later
+        this.handleSettingsUpdate = async () => {
+            // Reload tasks to ensure we have fresh data for the current project
+            await this.loadTasks();
+            await this.renderTasksInColumns();
+        };
+
         // Listen for settings updates to re-render/re-sort
-        window.addEventListener('settingsUpdated', () => {
-            this.renderTasksInColumns();
-        });
+        window.addEventListener('settingsUpdated', this.handleSettingsUpdate);
+    }
+
+    // Call this method when the board is no longer needed (e.g., when switching projects)
+    destroy() {
+        window.removeEventListener('settingsUpdated', this.handleSettingsUpdate);
     }
 
     async loadTasks() {
@@ -241,9 +252,11 @@ class Board {
 
         let metaHTML = '';
         if (category) {
+            // Use theme-adaptive color for Void category
+            const categoryColor = isVoidCategory(category) ? VOID_CATEGORY.color : category.color;
             metaHTML = `
                 <div class="task-meta">
-                    <span class="task-category" style="--category-color: ${category.color};">
+                    <span class="task-category" style="--category-color: ${categoryColor};">
                         ${translateCategoryName(category.name)}
                     </span>
                     ${this.projectType === 'numeric' && task.numeric !== null ?

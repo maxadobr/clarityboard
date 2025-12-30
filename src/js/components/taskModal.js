@@ -3,6 +3,7 @@ import { getAllCategories, addCategory, deleteCategory } from '../database/categ
 import { getAllNumericCategories, addNumericCategory, deleteNumericCategory } from '../database/categories_numeric.js';
 import { i18n } from '../i18n/i18n.js';
 import { translateCategoryName } from '../utils/categoryTranslation.js';
+import { isVoidCategory, VOID_CATEGORY } from '../utils/constants.js';
 
 class TaskModal {
     constructor(currentProjectId, projectType, categoryManager) {
@@ -123,7 +124,14 @@ class TaskModal {
         const dropdown = document.getElementById('categoryDropdown');
         dropdown.innerHTML = '';
 
-        const filtered = this.currentCategories.filter(c => c.name.toLowerCase().includes(filterText));
+        let filtered = this.currentCategories.filter(c => c.name.toLowerCase().includes(filterText));
+
+        // Sort categories: Void category always last
+        filtered.sort((a, b) => {
+            if (isVoidCategory(a)) return 1;
+            if (isVoidCategory(b)) return -1;
+            return a.name.localeCompare(b.name);
+        });
 
         if (filtered.length === 0) {
             if (filterText) {
@@ -138,56 +146,69 @@ class TaskModal {
         filtered.forEach(cat => {
             const item = document.createElement('div');
             item.className = 'dropdown-item';
+            const isVoid = isVoidCategory(cat);
+
+            // Use theme-adaptive color for Void category
+            const categoryColor = isVoid ? VOID_CATEGORY.color : (cat.color || '#ccc');
 
             // Item content
             const content = document.createElement('span');
             content.style.display = 'flex';
             content.style.alignItems = 'center';
             content.style.gap = '8px';
-            content.innerHTML = `<span class="color-dot" style="background-color: ${cat.color || '#ccc'}"></span> ${translateCategoryName(cat.name)}`;
+            content.innerHTML = `<span class="color-dot" style="background-color: ${categoryColor}"></span> ${translateCategoryName(cat.name)}`;
             item.appendChild(content);
 
-            // Delete button
-            const deleteBtn = document.createElement('span');
-            deleteBtn.className = 'delete-btn';
-            deleteBtn.innerHTML = '&times;';
-            deleteBtn.title = 'Delete Category';
+            // Delete button (not shown for Void category)
+            if (!isVoid) {
+                const deleteBtn = document.createElement('span');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.innerHTML = '&times;';
+                deleteBtn.title = 'Delete Category';
 
-            // Delete logic
-            deleteBtn.addEventListener('click', async (e) => {
-                e.preventDefault();
-                e.stopPropagation(); // Prevent selection
+                // Delete logic
+                deleteBtn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    e.stopPropagation(); // Prevent selection
 
-                if (confirm(i18n.getText('modal.category.delete_confirm'))) {
-                    try {
-                        if (this.projectType === 'numeric') {
-                            await deleteNumericCategory(cat.id);
-                        } else {
-                            await deleteCategory(cat.id);
+                    if (confirm(i18n.getText('modal.category.delete_confirm'))) {
+                        try {
+                            if (this.projectType === 'numeric') {
+                                await deleteNumericCategory(cat.id);
+                            } else {
+                                await deleteCategory(cat.id);
+                            }
+
+                            // Clear selection if it was the currently selected category
+                            if (document.getElementById('taskCategory').value == cat.id) {
+                                document.getElementById('taskCategoryInput').value = '';
+                                document.getElementById('taskCategory').value = '';
+                                this.updateSelectedCategoryVisual(null);
+                            }
+
+                            await this.loadCategories();
+                            this.renderDropdown(document.getElementById('taskCategoryInput').value.toLowerCase());
+                        } catch (error) {
+                            console.error('Error deleting category:', error);
+                            alert(i18n.getText('modal.category.delete_error'));
                         }
-
-                        // Passa valores vazios para limpar se for o atual
-                        if (document.getElementById('taskCategory').value == cat.id) {
-                            document.getElementById('taskCategoryInput').value = '';
-                            document.getElementById('taskCategory').value = '';
-                            this.updateSelectedCategoryVisual(null);
-                        }
-
-                        await this.loadCategories();
-                        this.renderDropdown(document.getElementById('taskCategoryInput').value.toLowerCase());
-                    } catch (error) {
-                        console.error('Error deleting category:', error);
-                        alert(i18n.getText('modal.category.delete_error'));
                     }
-                }
-            });
-            item.appendChild(deleteBtn);
+                });
+                item.appendChild(deleteBtn);
+            } else {
+                // Show lock icon for Void category
+                const lockIcon = document.createElement('span');
+                lockIcon.className = 'void-lock';
+                lockIcon.innerHTML = '🔒';
+                lockIcon.style.opacity = '0.5';
+                item.appendChild(lockIcon);
+            }
 
             // Selection logic
             item.addEventListener('click', () => {
                 document.getElementById('taskCategoryInput').value = translateCategoryName(cat.name);
                 document.getElementById('taskCategory').value = cat.id;
-                this.updateSelectedCategoryVisual(cat.color);
+                this.updateSelectedCategoryVisual(categoryColor);
             });
 
             dropdown.appendChild(item);
@@ -340,15 +361,17 @@ class TaskModal {
             document.getElementById('taskCategory').value = task.FK_categories_id;
             const category = this.currentCategories.find(c => c.id === task.FK_categories_id);
             if (category) {
+                const categoryColor = isVoidCategory(category) ? VOID_CATEGORY.color : category.color;
                 document.getElementById('taskCategoryInput').value = translateCategoryName(category.name);
-                this.updateSelectedCategoryVisual(category.color);
+                this.updateSelectedCategoryVisual(categoryColor);
             }
         } else if (task.FK_categories_numeric_id) {
             document.getElementById('taskCategory').value = task.FK_categories_numeric_id;
             const category = this.currentCategories.find(c => c.id === task.FK_categories_numeric_id);
             if (category) {
+                const categoryColor = isVoidCategory(category) ? VOID_CATEGORY.color : category.color;
                 document.getElementById('taskCategoryInput').value = translateCategoryName(category.name);
-                this.updateSelectedCategoryVisual(category.color);
+                this.updateSelectedCategoryVisual(categoryColor);
             }
         }
 

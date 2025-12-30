@@ -11,7 +11,22 @@ const CATEGORY_TYPES = {
     NUMERIC: "numeric",
 };
 
-const DB_VERSION = 1; 
-const DB_NAME = "ClarityBoard"; 
+// Void category is a special fixed category present in every project
+// It serves as a placeholder with zero importance for frictionless task creation
+const VOID_CATEGORY = {
+    name: 'Void',
+    importance: 0,
+    color: 'var(--text-primary)', // Adapts to theme: black in light mode, white in dark mode
+    completion: '0%'
+};
 
-export { ERROR_MESSAGES, CATEGORY_TYPES, DB_VERSION, DB_NAME };
+// Helper function to check if a category is the Void category
+function isVoidCategory(category) {
+    return category && category.name === VOID_CATEGORY.name;
+}
+
+const DB_VERSION = 1;
+const DB_NAME = "ClarityBoard";
+
+export { ERROR_MESSAGES, CATEGORY_TYPES, DB_VERSION, DB_NAME, VOID_CATEGORY, isVoidCategory };
+

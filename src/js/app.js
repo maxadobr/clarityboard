@@ -154,7 +154,15 @@ class App {
                     await this.handleProjectImported();
                 } catch (error) {
                     console.error('Error importing project:', error);
-                    alert(i18n.getText('alert.import_fail'));
+                    // Check if it's a duplicate project error
+                    if (error.message && error.message.includes('already exists')) {
+                        alert(i18n.getText('alert.import_duplicate'));
+                    } else {
+                        alert(i18n.getText('alert.import_fail'));
+                    }
+                } finally {
+                    // Reset the file input so the same file can be selected again
+                    event.target.value = '';
                 }
             }
         });
@@ -674,6 +682,12 @@ class App {
                 localStorage.setItem('lastProjectId', projectId);
                 this.categoryManager.setProject(projectId, this.currentProject.type);
                 await this.taskModal.setProject(projectId, this.currentProject.type);
+
+                // Cleanup old board event listeners before creating new one
+                if (this.currentBoard && this.currentBoard.destroy) {
+                    this.currentBoard.destroy();
+                }
+
                 this.currentBoard = new Board(projectId, this.currentProject.type, this.categoryManager, this.settingsManager);
                 await this.currentBoard.render();
             } else {

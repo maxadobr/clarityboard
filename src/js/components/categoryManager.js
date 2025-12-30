@@ -2,6 +2,7 @@ import { addCategory, getAllCategories, deleteCategory, updateCategory } from '.
 import { addNumericCategory, getAllNumericCategories, deleteNumericCategory, updateNumericCategory } from '../database/categories_numeric.js';
 import { i18n } from '../i18n/i18n.js';
 import { translateCategoryName } from '../utils/categoryTranslation.js';
+import { isVoidCategory, VOID_CATEGORY } from '../utils/constants.js';
 
 class CategoryManager {
     constructor(projectId, projectType) {
@@ -127,10 +128,24 @@ class CategoryManager {
             return;
         }
 
-        this.categoryList.innerHTML = categories.map(cat => `
-            <div class="category-item">
+        // Sort categories: Void category always last
+        categories.sort((a, b) => {
+            if (isVoidCategory(a)) return 1;
+            if (isVoidCategory(b)) return -1;
+            return a.name.localeCompare(b.name);
+        });
+
+        this.categoryList.innerHTML = categories.map(cat => {
+            const isVoid = isVoidCategory(cat);
+            // Void category uses CSS variable for theme-adaptive color
+            const colorStyle = isVoid
+                ? 'var(--text-primary)'
+                : (cat.color || '#4A90E2');
+
+            return `
+            <div class="category-item ${isVoid ? 'void-category' : ''}">
                 <div class="category-info">
-                    <div class="category-color-preview" style="background-color: ${cat.color || '#4A90E2'}"></div>
+                    <div class="category-color-preview" style="background-color: ${colorStyle}"></div>
                     <div class="category-details">
                         <div class="category-name">${translateCategoryName(cat.name)}</div>
                         <div class="category-importance">
@@ -138,14 +153,16 @@ class CategoryManager {
                         </div>
                     </div>
                 </div>
+                ${!isVoid ? `
                 <div class="category-actions">
                     <button class="category-edit" data-id="${cat.id}">✏️</button>
                     <button class="category-delete" data-id="${cat.id}">🗑️</button>
                 </div>
+                ` : '<div class="category-actions"><span class="void-badge">🔒</span></div>'}
             </div>
-        `).join('');
+        `}).join('');
 
-        // Add delete event listeners
+        // Add delete event listeners (only for non-Void categories)
         this.categoryList.querySelectorAll('.category-delete').forEach(btn => {
             btn.addEventListener('click', async (e) => {
                 const id = parseInt(e.target.dataset.id);
@@ -160,17 +177,18 @@ class CategoryManager {
             });
         });
 
-        // Add edit event listeners
+        // Add edit event listeners (only for non-Void categories)
         this.categoryList.querySelectorAll('.category-edit').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const id = parseInt(e.target.dataset.id);
                 const category = categories.find(c => c.id === id);
-                if (category) {
+                if (category && !isVoidCategory(category)) {
                     this.editCategory(category);
                 }
             });
         });
     }
+
 
     editCategory(category) {
         this.editingCategory = category;

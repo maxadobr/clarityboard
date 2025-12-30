@@ -1,4 +1,5 @@
 import database from './database.js';
+import { VOID_CATEGORY } from '../utils/constants.js';
 
 
 async function addCategory(category) {
@@ -26,22 +27,61 @@ async function updateCategory(category) {
 }
 
 
-
+/**
+ * Creates the default Void category for a project.
+ * This category is immutable and always has importance 0.
+ * @param {number} projectId - The project ID to create the Void category for.
+ * @param {string} projectType - Either 'numeric' or 'non-numeric'.
+ * @returns {Promise<number>} The ID of the created category.
+ */
 async function addDefaultCategories(projectId, projectType = 'non-numeric') {
-    const blankCategory = {
-        name: 'Void', // Constant name in database, translated in UI layer
-        importance: 0,
+    const voidCategory = {
+        ...VOID_CATEGORY,
         task: projectId,
-        color: '#6c757d', // Neutral gray
-        completion: '0%'
     };
 
     if (projectType === 'numeric') {
         const { addNumericCategory } = await import('./categories_numeric.js');
-        return await addNumericCategory(blankCategory);
+        return await addNumericCategory(voidCategory);
     } else {
-        return await addCategory(blankCategory);
+        return await addCategory(voidCategory);
     }
 }
 
-export { addCategory, getAllCategories, getCategoryById, deleteCategory, addDefaultCategories, updateCategory };
+/**
+ * Ensures a Void category exists for a project, creating it if not present.
+ * Prevents duplicates by checking for existing Void category.
+ * @param {number} projectId - The project ID.
+ * @param {string} projectType - Either 'numeric' or 'non-numeric'.
+ * @returns {Promise<number>} The ID of the existing or newly created Void category.
+ */
+async function ensureVoidCategory(projectId, projectType = 'non-numeric') {
+    let categories;
+
+    if (projectType === 'numeric') {
+        const { getAllNumericCategories } = await import('./categories_numeric.js');
+        categories = await getAllNumericCategories();
+    } else {
+        categories = await getAllCategories();
+    }
+
+    // Check if Void category already exists for this project
+    const existingVoid = categories.find(cat => cat.task === projectId && cat.name === VOID_CATEGORY.name);
+
+    if (existingVoid) {
+        return existingVoid.id;
+    }
+
+    // Create the Void category if it doesn't exist
+    return await addDefaultCategories(projectId, projectType);
+}
+
+export {
+    addCategory,
+    getAllCategories,
+    getCategoryById,
+    deleteCategory,
+    addDefaultCategories,
+    updateCategory,
+    ensureVoidCategory
+};

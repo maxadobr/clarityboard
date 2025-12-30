@@ -4,7 +4,6 @@
     flex-direction: column;
     height: 100%;
     padding: 1.5rem;
-
     overflow: hidden;
 }
 
@@ -24,19 +23,16 @@
 .board-controls {
     display: flex;
     gap: 0.625rem;
-
     align-items: center;
 }
 
 .color-indicators {
     display: flex;
     gap: 0.313rem;
-
 }
 
 .color-dot {
     width: 1.25rem;
-
     height: 1.25rem;
     border-radius: 50%;
     border: 2px solid var(--color-border);
@@ -44,12 +40,10 @@
 
 .board-columns {
     display: flex;
-    gap: 1.5rem;
-
+    gap: 1.8rem;
     overflow-x: auto;
     overflow-y: hidden;
     padding-bottom: 1rem;
-
     height: 100%;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
@@ -59,8 +53,7 @@
 @media (min-width: 768px) {
     .board-columns {
         grid-auto-flow: unset;
-        grid-template-columns: repeat(auto-fit, minmax(17.5rem, 1fr));
-
+        grid-template-columns: repeat(auto-fit, minmax(21rem, 1fr));
         box-shadow: none;
         scroll-snap-type: none;
     }
@@ -70,9 +63,8 @@
 .column {
     background-color: var(--bg-tertiary);
     border-radius: var(--radius-lg);
-    min-width: 18.75rem;
-
-    width: 18.75rem;
+    min-width: 22.5rem;
+    width: 22.5rem;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -102,31 +94,25 @@
 
     .board-columns {
         gap: 1rem;
-        /* Smaller gap on mobile */
     }
 
     .column {
         min-width: 90vw;
-        /* Use viewport width */
         width: 90vw;
     }
 
     .add-task-btn {
         display: none;
-        /* Hide on mobile (use FAB instead) */
     }
 }
 
 .column-header {
     font-weight: 700;
-    padding: 1.25rem 1.5rem;
-    /* 20px 24px → 1.25rem 1.5rem */
+    padding: 0.625rem 1.5rem 0;
     text-align: center;
     font-size: 0.875rem;
-
     text-transform: uppercase;
     letter-spacing: 0.063rem;
-
     border-bottom: none;
     display: flex;
     justify-content: center;
@@ -138,11 +124,10 @@
 
 .task-list {
     padding: 1rem;
-
+    margin-right: 0.25rem;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-
     overflow-y: auto;
     flex: 1;
     min-height: 0;
@@ -152,8 +137,7 @@
     background-color: var(--bg-primary);
     border: none;
     border-radius: var(--radius-md);
-    padding: 1.25rem;
-
+    padding: 1.5rem;
     cursor: pointer;
     transition: var(--transition);
     position: relative;
@@ -167,41 +151,33 @@
     top: 0;
     bottom: 0;
     width: 0.375rem;
-
     border-radius: 0.25rem 0 0 0.25rem;
-
     transition: var(--transition);
 }
 
 .task-card.priority-high::before {
     background-color: var(--color-high);
     box-shadow: 0 0 0.625rem var(--color-high);
-
 }
 
 .task-card.priority-medium::before {
     background-color: var(--color-medium);
     box-shadow: 0 0 0.5rem var(--color-medium);
-
 }
 
 .task-card.priority-low::before {
     background-color: var(--color-low);
     box-shadow: 0 0 0.375rem var(--color-low);
-
 }
 
 .task-card:hover {
     transform: translateY(-0.25rem);
-
     box-shadow: var(--shadow-lg);
 }
 
 .task-card h4 {
     font-size: 1rem;
-
     margin-bottom: 0.5rem;
-
     color: var(--text-primary);
     font-weight: 700;
     line-height: 1.4;
@@ -210,10 +186,8 @@
 
 .task-card p {
     font-size: 0.875rem;
-
     color: var(--text-secondary);
     margin-bottom: 1rem;
-
     line-height: 1.6;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -227,10 +201,8 @@
     justify-content: space-between;
     align-items: center;
     gap: 0.5rem;
-
-    margin-top: 1rem;
-
-    padding-top: 1rem;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
     border-top: 1px solid var(--border-secondary);
 }
 
@@ -238,10 +210,8 @@
     display: inline-flex;
     align-items: center;
     font-size: 0.688rem;
-
     font-weight: 500;
     letter-spacing: 0.019rem;
-    /* 0.3px → 0.019rem */
     white-space: nowrap;
     color: color-mix(in srgb, var(--category-color), black 25%);
 }
@@ -252,11 +222,9 @@
 
 .task-numeric {
     font-size: 0.75rem;
-
     font-weight: 700;
     color: var(--color-primary);
     padding: 0.25rem 0.5rem;
-    /* 4px 8px → 0.25rem 0.5rem */
     background-color: var(--color-primary-light);
     border-radius: var(--radius-sm);
 }
@@ -264,29 +232,25 @@
 .task-actions {
     display: flex;
     gap: 0.375rem;
-
-    margin-top: 0.75rem;
-
-    padding-top: 0.75rem;
+    margin-top: 0.375rem;
+    padding-top: 0.375rem;
     border-top: 1px solid var(--border-primary);
 }
 
 .task-actions button {
     flex: 1;
-    padding: 0.5rem 0.75rem;
-    /* 8px 12px → 0.5rem 0.75rem */
-    font-size: 0.75rem;
-
+    padding: 0.6rem 0.9rem;
+    font-size: 0.875rem;
     border: none;
     border-radius: var(--radius-sm);
     cursor: pointer;
     font-weight: 600;
     transition: var(--transition);
+    white-space: nowrap;
 }
 
 .task-actions button:hover {
     transform: translateY(-0.063rem);
-
 }
 
 .task-actions button:active {
@@ -303,7 +267,6 @@
     background-color: var(--bg-hover);
     border-color: var(--border-secondary);
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05);
-    /* 2px 4px → 0.125rem 0.25rem */
     color: var(--text-primary);
 }
 
@@ -336,7 +299,6 @@
 .add-task-btn {
     width: 100%;
     padding: 0.75rem;
-
     background-color: var(--bg-primary);
     border: none;
     border-radius: var(--radius-md);
@@ -345,20 +307,17 @@
     cursor: pointer;
     transition: var(--transition);
     margin-top: 0.75rem;
-
     box-shadow: var(--shadow-sm);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-
 }
 
 .add-task-btn:hover {
     background-color: var(--bg-primary);
     color: var(--color-primary);
     transform: translateY(-0.125rem);
-
     box-shadow: var(--shadow-md);
 }
 

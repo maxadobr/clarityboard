@@ -251,9 +251,9 @@ class Board {
         card.classList.add(priorityClass);
 
         let metaHTML = '';
-        if (category) {
-            // Use theme-adaptive color for Void category
-            const categoryColor = isVoidCategory(category) ? VOID_CATEGORY.color : category.color;
+        // Only show task-meta if category exists and is NOT the Void category
+        if (category && !isVoidCategory(category)) {
+            const categoryColor = category.color;
             metaHTML = `
                 <div class="task-meta">
                     <span class="task-category" style="--category-color: ${categoryColor};">

@@ -107,8 +107,6 @@ body {
     height: 100vh;
     overflow: hidden;
     padding-top: 0;
-    /* Removed padding */
-
     transition: var(--transition);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -118,14 +116,12 @@ body {
 header {
     background-color: var(--bg-primary);
     padding: 1rem 2rem;
-    /* 16px 32px → 1rem 2rem */
     border: 1px solid var(--border-primary);
     display: flex;
     align-items: center;
     position: relative;
     z-index: 100;
     height: clamp(5rem, 15vh + 1.5rem, 8rem);
-    /* Responsive height */
     width: 100%;
 }
 
@@ -139,7 +135,6 @@ header {
 @media (min-width: 768px) {
     .header-content-wrapper {
         padding: 0 16px;
-        /* Adjusted inner padding since header has padding */
     }
 }
 
@@ -151,12 +146,10 @@ header {
     display: flex;
     align-items: center;
     min-width: 0;
-    /* Allow shrinking */
 }
 
 .logo {
     height: clamp(3.5rem, 15vh, 8rem);
-    /* Allow overflow but cap at 8rem */
     width: clamp(3.5rem, 15vh, 8rem);
     display: block;
     background-color: white;
@@ -166,7 +159,6 @@ header {
     box-shadow: var(--shadow-md);
     transition: all 0.5s ease;
     margin: 0.5rem;
-    /* Small margin around logo */
 }
 
 /* Light Mode Logo Style (Sun-like) */
@@ -190,22 +182,18 @@ header {
 
 .project-selector select {
     padding: 0.75rem 3rem 0.75rem 1.25rem;
-    /* 12p 48px 12px 20px → rem */
     border: 1px solid var(--border-primary);
     border-radius: var(--radius-md);
     font-size: 1rem;
-
     font-weight: 600;
     background-color: var(--bg-secondary);
     color: var(--text-primary);
     cursor: pointer;
     max-width: 22.5rem;
-
     appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%236b7280' d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 1rem center;
-
     transition: var(--transition);
 }
 
@@ -231,18 +219,15 @@ header {
     display: flex;
     align-items: center;
     gap: 1rem;
-
 }
 
 .header-btn {
     padding: 0.75rem 1.5rem;
-    /* 12px 24px → 0.75rem 1.5rem */
     background-color: transparent;
     border: 1px solid var(--border-primary);
     border-radius: var(--radius-md);
     color: var(--text-primary);
     font-size: 0.938rem;
-
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
@@ -396,19 +381,16 @@ body.menu-open .mobile-nav {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-
 }
 
 .mobile-nav-btn {
     width: 100%;
     padding: 0.875rem 1rem;
-    /* 14px 16px → 0.875rem 1rem */
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-primary);
     border-radius: var(--radius-md);
     color: var(--text-primary);
     font-size: 0.938rem;
-
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
@@ -420,7 +402,6 @@ body.menu-open .mobile-nav {
     border-color: var(--color-primary);
     color: var(--color-primary);
     transform: translateX(0.25rem);
-
 }
 
 .close-menu {
@@ -520,7 +501,6 @@ body.menu-open .menu-overlay {
     cursor: pointer;
     transition: var(--transition);
     border: 2px solid transparent;
-    /* Prepare for border */
 }
 
 .color-dot.high {
@@ -563,7 +543,7 @@ body.menu-open .menu-overlay {
 /* Main */
 main {
     padding: 0;
-    max-width: 1600px;
+    max-width: 1920px;
     width: 100%;
     margin: 0 auto;
 }
@@ -571,13 +551,16 @@ main {
 @media (max-width: 767px) {
     body {
         overflow-x: hidden;
-        padding-top: 57px;
-        /* Adjusted for smaller mobile header */
+        padding-top: 11px;
+    }
+
+    header {
+        padding-top: 0.2rem;
+        margin-bottom: 0.5rem;
     }
 
     main {
         padding: 0 16px;
-        /* Add horizontal padding for consistency */
     }
 }
 
@@ -588,7 +571,6 @@ main {
 
     .board-nav-buttons {
         display: none;
-        /* Hide buttons on desktop */
     }
 }
 
@@ -599,9 +581,7 @@ main {
     /* 'smooth' for fluid transition */
     gap: 16px;
     justify-content: center;
-    /* Center columns */
     padding: 0 16px;
-    /* Equal lateral margins */
 }
 
 @media (max-width: 767px) {
@@ -672,23 +652,18 @@ main {
 .empty-state {
     text-align: center;
     padding: 6.25rem 1.25rem;
-    /* 100px 20px → 6.25rem 1.25rem */
 }
 
 .empty-state h2 {
     color: var(--text-primary);
     margin-bottom: 0.75rem;
-
     font-size: 1.75rem;
-
     font-weight: 600;
     letter-spacing: -0.031rem;
-    /* -0.5px → -0.031rem */
 }
 
 .empty-state p {
     font-size: 1rem;
-
     color: var(--text-secondary);
     font-weight: 400;
 }
@@ -811,10 +786,8 @@ main {
     justify-content: center;
     position: fixed;
     bottom: 1.5rem;
-
     right: 1.5rem;
     width: 3.5rem;
-
     height: 3.5rem;
     background-color: var(--color-primary);
     color: white;
@@ -822,7 +795,6 @@ main {
     border-radius: var(--radius-full);
     box-shadow: var(--shadow-lg);
     font-size: 1.75rem;
-
     font-weight: 300;
     cursor: pointer;
     z-index: 900;
@@ -834,7 +806,6 @@ main {
     background-color: var(--color-primary-dark);
     transform: scale(1.05);
     animation-play-state: paused;
-    /* Pausa a animação sutil para dar lugar ao brilho mais forte */
     box-shadow: 0 0 8px rgba(var(--color-primary-rgb), 0.5), 0 0 16px rgba(var(--color-primary-rgb), 0.3);
 }
 

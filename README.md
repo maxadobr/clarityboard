@@ -1,18 +1,18 @@
-# 📋 ClarityBoard
+# 📋 Clarity Board
 
-**ClarityBoard** is a modern, lightweight, and elegant task management web application designed to help you organize your workflow with clarity and focus. Built with vanilla JavaScript and powered by IndexedDB, it offers a seamless offline-first experience with no backend dependencies.
+**Clarity Board** is a modern, lightweight, and elegant task management web application designed to help you organize your workflow with clarity and focus. Built with vanilla JavaScript and powered by IndexedDB, it offers a seamless offline-first experience with no backend dependencies.
 
 ---
 
 ## 🌟 Introduction
 
-ClarityBoard is an intuitive Kanban-style task management application designed with a unique philosophy: **helping you make better decisions, not just managing tasks.** Unlike basic to-do lists or complex enterprise tools, ClarityBoard fills the gap by being powerful enough for sophisticated workflows while remaining lightweight and distraction-free.
+Clarity Board is an intuitive Kanban-style task management application designed with a unique philosophy: **helping you make better decisions, not just managing tasks.** Unlike basic to-do lists or complex enterprise tools, Clarity Board fills the gap by being powerful enough for sophisticated workflows while remaining lightweight and distraction-free.
 
 The application features a sleek, responsive design with dark/light theme support, full internationalization (i18n) capabilities, and a visual "data-at-a-glance" interface that helps you focus on what truly matters. It's more focused on helping you decide **what to do next** than simply tracking what you've done.
 
 ### Core Concept
 
-ClarityBoard provides **clarity** in task management through:
+Clarity Board provides **clarity** in task management through:
 - **Visual Organization**: Kanban-style columns (Backlog, Selected, In Progress, Done)
 - **Smart Prioritization**: Dynamic scoring algorithm based on urgency and category importance
 - **Category-Based Workflow**: Organize tasks with custom categories and color coding
@@ -134,15 +134,15 @@ ClarityBoard provides **clarity** in task management through:
 
 ### Option 1: Use the Live Application (Recommended)
 
-The easiest way to use ClarityBoard is to access the live version hosted on GitHub Pages:
+The easiest way to use Clarity Board is to access the live version hosted on GitHub Pages:
 
 **🌐 [https://maxadobr.github.io/clarityboard](https://maxadobr.github.io/clarityboard)**
 
-No installation required! Simply open the link in your browser and start using ClarityBoard immediately. All your data is stored locally in your browser using IndexedDB.
+No installation required! Simply open the link in your browser and start using Clarity Board immediately. All your data is stored locally in your browser using IndexedDB.
 
 ### Option 2: Run Locally
 
-If you prefer to run ClarityBoard locally or want to contribute to development:
+If you prefer to run Clarity Board locally or want to contribute to development:
 
 ```bash
 # Clone the repository
@@ -165,13 +165,13 @@ Then navigate to `http://localhost:8000` in your browser.
 
 ### Getting Started
 
-1. **First Launch**: Upon opening ClarityBoard, you'll see a welcome modal
+1. **First Launch**: Upon opening Clarity Board, you'll see a welcome modal
 2. **Create Project**: Click "Create New Project" or import an existing one
 3. **Add Categories**: Open the Category Manager to create task categories (you can also create them on-the-fly while creating tasks)
 4. **Create Tasks**: Use the FAB button (+) in the bottom-right corner or click "Add Task" at the bottom of any column
 5. **Adjust Category Importance**: After creating categories, open the Category Manager to set importance values (0-10) to match your priorities
    - **Tip**: Assign higher values (7-10) to what's most important to you right now, and lower values (1-3) to less urgent matters. You can always adjust these later as your priorities shift.
-   - **Life Balance**: If you're using ClarityBoard for personal goals, consider using [Wheel of Life](https://wheeloflife.io/) to map different areas of your life and identify which ones need more attention for greater satisfaction.
+   - **Life Balance**: If you're using Clarity Board for personal goals, consider using [Wheel of Life](https://wheeloflife.io/) to map different areas of your life and identify which ones need more attention for greater satisfaction.
 6. **Organize**: Move tasks between columns using the status dropdown or quick action buttons (drag-and-drop is a potential future feature)
 
 ### Managing Tasks
@@ -205,13 +205,13 @@ Then navigate to `http://localhost:8000` in your browser.
 
 ### About This Project
 
-This is **ClarityBoard**, my final project for **CS50x 2025**. It's a comprehensive task management web application built to solve a real challenge I faced: effectively organizing multiple projects with varying priorities and workflows in one unified workspace.
+This is **Clarity Board**, my final project for **CS50x 2025**. It's a comprehensive task management web application built to solve a real challenge I faced: effectively organizing multiple projects with varying priorities and workflows in one unified workspace.
 
 ### Why I Built This
 
 During this period of my life, I was living in Santos, Brazil, for a consulting job at an automotive parts company while juggling multiple responsibilities: working full-time, starting my Software Engineering degree, taking CS50x, and learning front-end development through a Santander Open Academy scholarship. I struggled significantly with decision-making and filtering the abundance of content coming my way. With broad interests and a love for studying, I had to be careful about prioritizing tasks. I was using to-do lists and managing projects in Jira, but it felt like using a "bazooka to kill a cockroach."
 
-**The timing was intense:** I developed ClarityBoard while simultaneously completing CS50x and my first university semester. Both the Software Engineering course at my university and CS50x guided me toward the same philosophy—bringing continuous, well-architected solutions to real problems. This approach aligned perfectly with my automotive industry background: systematic problem-solving, attention to detail, and building for reliability and longevity.
+**The timing was intense:** I developed Clarity Board while simultaneously completing CS50x and my first university semester. Both the Software Engineering course at my university and CS50x guided me toward the same philosophy—bringing continuous, well-architected solutions to real problems. This approach aligned perfectly with my automotive industry background: systematic problem-solving, attention to detail, and building for reliability and longevity.
 
 I explored many task management tools searching for the right fit: Google Tasks, Ticktick, Todoist, Emacs Org Mode, Trello, Excel, and several others. While I learned that software alone doesn't determine project success, the right tool can help you navigate better by providing autonomy in your choices and clarity in execution. Most existing solutions were either too simple (basic to-do lists) or too complex (enterprise project management suites). I needed something in between—powerful enough for complex workflows, yet lightweight and focused. The CS50x final project was the perfect opportunity to build exactly what I needed.
 
@@ -257,7 +257,7 @@ I chose IndexedDB over a traditional backend architecture for several complement
 - **Intentional Scope**: This client-side approach allowed me to focus on perfecting the core task management logic and user experience without the complexity of server-side infrastructure. While I plan to explore backend integration in future projects as I develop confidence in server-side security and architecture, this implementation serves as a solid foundation that demonstrates the viability of browser-based storage for personal productivity tools.
 
 **Inspiration:**
-My first experience with offline-first browser applications was [Excalidraw](https://excalidraw.com/), which opened my eyes to this universe of possibilities. The elegance of having a fully functional application with complete privacy and instant access, all running in the browser without server dependencies, deeply resonated with me. This experience inspired me to explore IndexedDB and build ClarityBoard with the same philosophy.
+My first experience with offline-first browser applications was [Excalidraw](https://excalidraw.com/), which opened my eyes to this universe of possibilities. The elegance of having a fully functional application with complete privacy and instant access, all running in the browser without server dependencies, deeply resonated with me. This experience inspired me to explore IndexedDB and build Clarity Board with the same philosophy.
 
 To manage IndexedDB's complexity, I implemented a custom `Database` wrapper class that converts its event-based API into a cleaner Promise-based interface. The schema uses three main object stores (`projects`, `tasks`, and `categories`) with proper indexing for efficient queries.
 
@@ -274,7 +274,7 @@ Each component (Board, TaskModal, CategoryManager, etc.) is implemented as an ES
 
 ### Dynamic Task Scoring Algorithm
 
-The task prioritization system is one of the most sophisticated features and the heart of ClarityBoard's decision-making philosophy. While simple in its essence, it's powerful in execution. The scoring formula was intentionally designed to be straightforward, making it easy for users to understand how priorities are calculated and adjust weights to their specific needs.
+The task prioritization system is one of the most sophisticated features and the heart of Clarity Board's decision-making philosophy. While simple in its essence, it's powerful in execution. The scoring formula was intentionally designed to be straightforward, making it easy for users to understand how priorities are calculated and adjust weights to their specific needs.
 
 Tasks are automatically scored using a weighted formula implemented in `board.js`:
 
@@ -450,7 +450,7 @@ This project significantly expanded my understanding of:
 
 ## ️ Database Schema
 
-ClarityBoard uses IndexedDB with the following structure:
+Clarity Board uses IndexedDB with the following structure:
 
 ### Object Stores
 
@@ -505,7 +505,7 @@ ClarityBoard uses IndexedDB with the following structure:
 
 ### Theme Variables
 
-ClarityBoard uses CSS custom properties for theming. You can customize colors by editing `src/css/styles.css`:
+Clarity Board uses CSS custom properties for theming. You can customize colors by editing `src/css/styles.css`:
 
 ```css
 [data-theme="light"] {
@@ -539,7 +539,7 @@ Settings are stored in `localStorage` with the following defaults:
 
 ## 🌐 Browser Support
 
-ClarityBoard requires a modern browser with:
+Clarity Board requires a modern browser with:
 - **IndexedDB API** support
 - **ES6+ JavaScript** (Modules, Classes, Async/Await)
 - **CSS Custom Properties** (CSS Variables)
@@ -592,7 +592,7 @@ Visit my **[portfolio](https://maxadobr.github.io/)** to discover more applicati
 
 ### Let's Collaborate
 
-Interested in collaborating or have questions about ClarityBoard? Feel free to reach out:
+Interested in collaborating or have questions about Clarity Board? Feel free to reach out:
 - 💼 View my professional profile on [LinkedIn](https://www.linkedin.com/in/maxadobr/)
 - 💻 Check out my code and projects on [GitHub](https://github.com/maxadobr)
 - 🌐 Explore my portfolio at [maxadobr.github.io](https://maxadobr.github.io/)
@@ -600,5 +600,5 @@ Interested in collaborating or have questions about ClarityBoard? Feel free to r
 ---
 
 <p align="center">
-  <strong>ClarityBoard</strong> © 2025 | Designed and Developed by <a href="https://github.com/maxadobr">Maxado</a>
+  <strong>Clarity Board</strong> © 2025 | Designed and Developed by <a href="https://github.com/maxadobr">Maxado</a>
 </p>

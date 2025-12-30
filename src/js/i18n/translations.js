@@ -20,7 +20,7 @@ export const translations = {
         'board.empty_state.desc': "Let's get started by creating your first project or importing one.",
 
         // Footer
-        'footer.copyright': 'ClarityBoard © 2025',
+        'footer.copyright': 'Clarity Board © 2025',
 
         // Settings Modal
         'settings.title': 'Settings',
@@ -135,7 +135,7 @@ export const translations = {
         'board.empty_state.desc': 'Vamos começar criando seu primeiro projeto ou importando um.',
 
         // Footer
-        'footer.copyright': 'ClarityBoard © 2025',
+        'footer.copyright': 'Clarity Board © 2025',
 
         // Settings Modal
         'settings.title': 'Configurações',

@@ -18,8 +18,6 @@ class Board {
         });
     }
 
-
-
     async loadTasks() {
         try {
             const allTasks = await getAllTasks();
@@ -74,7 +72,6 @@ class Board {
         }
 
         await this.renderTasksInColumns();
-
 
         document.querySelectorAll('.add-task-btn').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -224,7 +221,7 @@ class Board {
             this.openEditModal(task);
         });
 
-        // Obtém a categoria
+        // Get category
         let category = null;
         if (task.FK_categories_id) {
             category = await getCategoryById(task.FK_categories_id);
@@ -260,9 +257,8 @@ class Board {
         // Date Logic
         let dateHTML = '';
         if (task.schedule) {
-            const dateObj = new Date(task.schedule);
-            // Format: DD/MM/YYYY or locale default
-            const dateStr = dateObj.toLocaleDateString(i18n.getLanguage());
+            // Use date string directly to avoid timezone issues and ensure YYYY-MM-DD format
+            const dateStr = task.schedule;
             dateHTML = `<div class="task-date schedule" style="margin-bottom: 8px; font-size: 12px; font-weight: 600; color: var(--color-primary);">
                 <span class="icon">📅</span> ${dateStr}
             </div>`;

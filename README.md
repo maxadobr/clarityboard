@@ -1,6 +1,6 @@
 # 📋 Clarity Board
 
-#### Video Demo: `https://youtu.be/NiL4kOohAuo`
+[Demo Video](https://www.youtube.com/watch?v=https://youtu.be/NiL4kOohAuo)
 
 **Clarity Board** is a modern, lightweight, and elegant task management web application designed to help you organize your workflow with clarity and focus. Built with vanilla JavaScript and powered by IndexedDB, it offers a seamless offline-first experience with no backend dependencies.
 
